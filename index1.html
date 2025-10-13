@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakso Gembong - Bakso Terenak di Kota</title>
+    <style>
+        /* Reset dan Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #d35400;
+            --secondary: #e67e22;
+            --accent: #f39c12;
+            --dark: #333;
+            --light: #f9f9f9;
+            --gray: #777;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-left: 10px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Menu Section */
+        .section-title {
+            text-align: center;
+            margin: 60px 0 40px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .menu-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .menu-img {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .menu-content {
+            padding: 20px;
+        }
+
+        .menu-content h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .menu-content p {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price span {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* About Section */
+        .about {
+            background-color: white;
+            padding: 80px 0;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+
+        .about-image {
+            flex: 1;
+            height: 400px;
+            background-color: #ddd;
+            border-radius: 8px;
+            background-image: url('https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Testimonial Section */
+        .testimonials {
+            padding: 80px 0;
+            background-color: #f5f5f5;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+
+        .customer {
+            display: flex;
+            align-items: center;
+        }
+
+        .customer-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 15px;
+        }
+
+        .customer-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .customer-info span {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 50px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .contact-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .contact-details h4 {
+            margin-bottom: 5px;
+        }
+
+        .contact-details p {
+            color: var(--gray);
+        }
+
+        .contact-form {
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        textarea.form-control {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            margin-right: 30px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-column p, .footer-column a {
+            color: #bbb;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content, .contact-container {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-column {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">🍜</div>
+                <h1>Bakso Gembong</h1>
+            </div>
+            <nav>
+                <div class="mobile-menu">☰</div>
+                <ul>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#about">Tentang Kami</a></li>
+                    <li><a href="#testimonials">Testimoni</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Bakso Gembong - Kenikmatan Tiada Tara</h2>
+            <p>Rasakan kelezatan bakso autentik dengan resep turun-temurun yang telah memuaskan ribuan pelanggan. Daging pilihan, kuah gurih, dan pelayanan terbaik hanya di Bakso Gembong.</p>
+            <a href="#menu" class="btn">Lihat Menu</a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <div class="container">
+            <div class="section-title">
+                <h2>Menu Andalan Kami</h2>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-img" style="background-image: url('https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="menu-content">
+                        <h3>Bakso Spesial</h3>
+                        <p>Bakso daging sapi pilihan dengan kuah kaldu sapi yang gurih dan lezat.</p>
+                        <div class="price">
+                            <span>Rp 25.000</span>
+                            <a href="#" class="btn">Pesan</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-img" style="background-image: url('https://images.unsplash.com/photo-1587334968337-49c62c55d71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="menu-content">
+                        <h3>Bakso Mercon</h3>
+                        <p>Bakso dengan level pedas maksimal untuk pecinta kuliner pedas.</p>
+                        <div class="price">
+                            <span>Rp 30.000</span>
+                            <a href="#" class="btn">Pesan</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-img" style="background-image: url('https://images.unsplash.com/photo-1563245372-f5d0f4cec907?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="menu-content">
+                        <h3>Bakso Jumbo</h3>
+                        <p>Bakso ukuran besar dengan isian yang melimpah dan tekstur kenyal.</p>
+                        <div class="price">
+                            <span>Rp 35.000</span>
+                            <a href="#" class="btn">Pesan</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-img" style="background-image: url('https://images.unsplash.com/photo-1563245372-f5d0f4cec907?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="menu-content">
+                        <h3>Bakso Komplit</h3>
+                        <p>Bakso dengan tambahan pangsit, tahu, dan mie untuk porsi yang lebih lengkap.</p>
+                        <div class="price">
+                            <span>Rp 40.000</span>
+                            <a href="#" class="btn">Pesan</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Tentang Bakso Gembong</h2>
+                    <p>Bakso Gembong didirikan pada tahun 2010 dengan misi menghadirkan bakso berkualitas tinggi dengan cita rasa yang autentik. Kami menggunakan bahan-bahan pilihan dan resep rahasia yang telah diwariskan turun-temurun.</p>
+                    <p>Setiap hari, kami menyajikan bakso dengan daging sapi segar yang diolah dengan teknik khusus untuk menghasilkan tekstur yang kenyal dan rasa yang gurih. Kuah kaldu kami dimasak selama berjam-jam untuk mendapatkan cita rasa yang mendalam.</p>
+                    <p>Kami berkomitmen untuk memberikan pengalaman kuliner terbaik bagi setiap pelanggan dengan pelayanan yang ramah dan suasana yang nyaman.</p>
+                </div>
+                <div class="about-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Apa Kata Pelanggan Kami</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <p>"Bakso Gembong adalah bakso terenak yang pernah saya coba! Teksturnya kenyal, kuahnya gurih, dan pelayanannya sangat ramah."</p>
+                    <div class="customer">
+                        <div class="customer-img"></div>
+                        <div class="customer-info">
+                            <h4>Andi Wijaya</h4>
+                            <span>Pelanggan Setia</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p>"Saya sudah mencoba berbagai bakso di kota ini, tapi Bakso Gembong tetap yang terbaik. Rasanya autentik dan konsisten."</p>
+                    <div class="customer">
+                        <div class="customer-img"></div>
+                        <div class="customer-info">
+                            <h4>Rina Sari</h4>
+                            <span>Food Vlogger</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p>"Bakso Mercon-nya benar-benar pedas dan menggugah selera! Cocok banget buat pecinta pedas seperti saya."</p>
+                    <div class="customer">
+                        <div class="customer-img"></div>
+                        <div class="customer-info">
+                            <h4>Budi Santoso</h4>
+                            <span>Pelanggan</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Hubungi Kami</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Informasi Kontak</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>Alamat</h4>
+                            <p>Jl. Merdeka No. 123, Jakarta Pusat</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <h4>Telepon</h4>
+                            <p>(021) 1234-5678</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>info@baksogembong.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div class="contact-details">
+                            <h4>Jam Operasional</h4>
+                            <p>Senin - Minggu: 09.00 - 21.00 WIB</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Kirim Pesan</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Nama</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subjek</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Pesan</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Bakso Gembong</h3>
+                    <p>Menghadirkan bakso terenak dengan cita rasa autentik sejak 2010. Komitmen kami adalah memberikan pengalaman kuliner terbaik bagi setiap pelanggan.</p>
+                    <div class="social-links">
+                        <a href="#">FB</a>
+                        <a href="#">IG</a>
+                        <a href="#">TW</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Menu Populer</h3>
+                    <a href="#">Bakso Spesial</a>
+                    <a href="#">Bakso Mercon</a>
+                    <a href="#">Bakso Jumbo</a>
+                    <a href="#">Bakso Komplit</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Link Cepat</h3>
+                    <a href="#home">Beranda</a>
+                    <a href="#menu">Menu</a>
+                    <a href="#about">Tentang Kami</a>
+                    <a href="#contact">Kontak</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Bakso Gembong. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu after clicking a link
+                    document.querySelector('nav ul').classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
